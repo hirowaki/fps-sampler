@@ -1,12 +1,12 @@
 'use strict';
 
-const assert = require('assert');
-const sinon = require('sinon');
-const FPSSampler = require('./../index');
-const EventEmitter = require('events');
+var assert = require('assert');
+var sinon = require('sinon');
+var FPSSampler = require('./../index');
+var EventEmitter = require('events');
 
 describe('FPSSampler tests.', function () {
-    let sandbox;
+    var sandbox;
 
     beforeEach(function () {
         sandbox = sinon.sandbox.create();
@@ -18,7 +18,7 @@ describe('FPSSampler tests.', function () {
 
     describe('constructor.', function () {
         it('numSamples specified.', function () {
-            const instance = new FPSSampler(30);
+            var instance = new FPSSampler(30);
             assert.strictEqual(instance._numSamples, 30);
             assert.strictEqual(instance._samples.length, 0);
             assert.strictEqual(instance._sum, 0);
@@ -27,7 +27,7 @@ describe('FPSSampler tests.', function () {
         });
 
         it('numSamples not specified.', function () {
-            const instance = new FPSSampler();
+            var instance = new FPSSampler();
             assert.strictEqual(instance._numSamples, 60);
             assert.strictEqual(instance._samples.length, 0);
             assert.strictEqual(instance._sum, 0);
@@ -38,7 +38,7 @@ describe('FPSSampler tests.', function () {
 
     describe('_addSample.', function () {
         it('push new one.', function () {
-            const instance = new FPSSampler();
+            var instance = new FPSSampler();
             assert.strictEqual(instance._samples.length, 0);
 
             instance._addSample(123);
@@ -47,7 +47,7 @@ describe('FPSSampler tests.', function () {
         });
 
         it('push new one. case overflow handling.', function () {
-            const instance = new FPSSampler(2);
+            var instance = new FPSSampler(2);
             assert.strictEqual(instance._samples.length, 0);
 
             instance._addSample(123);
@@ -67,7 +67,7 @@ describe('FPSSampler tests.', function () {
 
     describe('_getAverage.', function () {
         it('check up.', function () {
-            const instance = new FPSSampler(60);
+            var instance = new FPSSampler(60);
             instance._addSample(1);
             instance._addSample(2);
             instance._addSample(3);
@@ -79,16 +79,16 @@ describe('FPSSampler tests.', function () {
         });
 
         it('case _samples are empty.', function () {
-            const instance = new FPSSampler();
+            var instance = new FPSSampler();
             assert.strictEqual(instance._getAverage(), 0);
         });
     });
 
     describe('update.', function () {
         it('no observer.', function () {
-            const clock = sandbox.useFakeTimers();
+            var clock = sandbox.useFakeTimers();
 
-            const instance = new FPSSampler(60);
+            var instance = new FPSSampler(60);
             // first frame always results 0.
             assert.deepEqual(instance.update(), {
                 fps: 0,
@@ -105,9 +105,9 @@ describe('FPSSampler tests.', function () {
         });
 
         it('observer.', function () {
-            const _fps = (60 / (16 / (1000 / 60))) | 0;
-            let callCount = 0;
-            const testObserver = function (info) {
+            var _fps = (60 / (16 / (1000 / 60))) | 0;
+            var callCount = 0;
+            var testObserver = function (info) {
                 assert.deepEqual(info, {
                     fps: _fps,
                     now: 16,
@@ -116,8 +116,8 @@ describe('FPSSampler tests.', function () {
                 ++callCount;
             };
 
-            const clock = sandbox.useFakeTimers();
-            const instance = new FPSSampler(60);
+            var clock = sandbox.useFakeTimers();
+            var instance = new FPSSampler(60);
             instance.observe(testObserver);
             instance._lastFrame = 0;
 
@@ -131,9 +131,9 @@ describe('FPSSampler tests.', function () {
         });
 
         it('observer.', function () {
-            const clock = sandbox.useFakeTimers();
+            var clock = sandbox.useFakeTimers();
 
-            const instance = new FPSSampler(2);
+            var instance = new FPSSampler(2);
             instance._lastFrame = 0;
 
             clock.tick(16); // tick 16msec.
@@ -161,10 +161,10 @@ describe('FPSSampler tests.', function () {
 
     describe('observe.', function () {
         it('set observer.', function () {
-            const funcA = () => {};
-            const funcB = () => {};
+            var funcA = function () {};
+            var funcB = function () {};
 
-            const instance = new FPSSampler();
+            var instance = new FPSSampler();
             assert.strictEqual(instance._observerFunc, null);
 
             instance.observe(funcA);
@@ -180,23 +180,23 @@ describe('FPSSampler tests.', function () {
 
     describe('integration test using EventEmitter.', function () {
         it('numSamples specified.', function () {
-            const instance = new FPSSampler(30);
-            const emitter = new EventEmitter();
-            let eventCount = 0;
+            var instance = new FPSSampler(30);
+            var emitter = new EventEmitter();
+            var eventCount = 0;
 
             // subscriber.
-            emitter.on('FPS', (info) => {
+            emitter.on('FPS', function (info) {
                 ++eventCount;
                 assert.strictEqual(info.now, 16 * eventCount);
                 assert.strictEqual(info.elapsed, 16);
             });
 
-            instance.observe((info) => {
+            instance.observe(function (info) {
                 emitter.emit('FPS', info);
             });
             instance._lastFrame = 0;
 
-            const clock = sandbox.useFakeTimers();
+            var clock = sandbox.useFakeTimers();
             clock.tick(16); // tick 16msec.
             assert.strictEqual(eventCount, 0);
             instance.update();

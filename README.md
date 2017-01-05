@@ -24,7 +24,7 @@ You have to call `update` each frame from your application code (main loop). The
 #### Use case 1. not using callback(observer).
 ```
 // not using callback(observer).
-const FPSSampler = require('FPSSampler');
+const FPSSampler = require('fps-sampler');
 
 const sampler = new FPSSampler(60);     // sampling latest 60 frames.
 
@@ -40,7 +40,7 @@ function update() {
 
 #### Use case 2. using callback(observer).
 ```
-const FPSSampler = require('FPSSampler');
+const FPSSampler = require('fps-sampler');
 
 const sampler = new FPSSampler(60);     // sampling latest 60 frames.
 sampler.observe((info) => {
@@ -57,7 +57,7 @@ function update() {
 
 #### In case you'd like to use EventEmitter (node/events).
 ```
-const FPSSampler = require('FPSSampler');
+const FPSSampler = require('fps-sampler');
 const EventEmitter = require('events');
 
 const sampler = new FPSSampler(60);     // sampling latest 60 frames.

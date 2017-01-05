@@ -1,0 +1,28 @@
+{
+  "author": "hirowaki https://github.com/hirowaki",
+  "name": "fps-sampler",
+  "description": "FPS sampler.",
+  "main": "index.js",
+  "version": "0.0.1",
+  "license" : "MIT",
+  "engines": {
+    "node": ">=v4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hirowaki/fps-sampler.git"
+  },
+  "scripts": {
+    "lint": "eslint index.js test/",
+    "test": "istanbul cover _mocha ./test"
+  },
+  "keywords": [
+    "fps"
+  ],
+  "devDependencies": {
+    "eslint": "^3.12.2",
+    "mocha": "^3.2.0",
+    "sinon": "^1.17.7",
+    "istanbul": "^0.4.5"
+  }
+}

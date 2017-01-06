@@ -1,0 +1,63 @@
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.2.2/pixi.min.js"></script>
+    <script src="./fps-sampler.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <style>
+        body {
+            background-color: white;
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var view = new PIXI.Container();
+        var renderer = PIXI.autoDetectRenderer(320, 120, {
+            backgroundColor: 0xFFFFFF
+        });
+
+        document.body.appendChild(renderer.view);
+        var style = {
+            fontFamily : 'Montserrat',
+            fontSize : '16px',
+            fontStyle : 'italic',
+            fill : '#000080'
+        };
+
+        var title = new PIXI.Text('fps-sampler demo@hirowaki', style);
+        title.position.set(8, 16);
+        view.addChild(title);
+
+        var textFPS = {};
+        var y = 44;
+        ['fps', 'elapsed', 'now'].forEach((tag) => {
+            textFPS[tag] = new PIXI.Text('', style);
+            textFPS[tag].position.set(8, y);
+            y += 16;
+            view.addChild(textFPS[tag]);
+        });
+
+        var sampler = new FpsSampler();
+
+        function mainLoop() {
+            var frameInfo = sampler.update();
+
+            requestAnimationFrame(mainLoop);
+
+            textFPS.fps.setText(`FPS: ${frameInfo.fps}`);
+            textFPS.elapsed.setText(`elapsed: ${frameInfo.elapsed}`);
+            textFPS.now.setText(`now: ${frameInfo.now}`);
+
+            renderer.render(view);
+        }
+
+        mainLoop();
+    </script>
+    <div style="font-size: small">
+        <a href="https://github.com/hirowaki/fps-sampler">https://github.com/hirowaki/fps-sampler</a>
+    </div>
+</body>
+</html>

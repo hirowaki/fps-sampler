@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/hirowaki/fps-sampler.svg?branch=master)](https://travis-ci.org/hirowaki/fps-sampler)
 
 ## FPS Sampler
+Simple demo [here](https://hirowaki.github.io/fps-sampler/).
 
 ### public API
 ```

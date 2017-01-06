@@ -13,8 +13,10 @@
     "url": "git@github.com:hirowaki/fps-sampler.git"
   },
   "scripts": {
+    "test": "istanbul cover _mocha ./test",
     "lint": "eslint index.js test/",
-    "test": "istanbul cover _mocha ./test"
+    "build": "uglifyjs --compress --mangle --verbose --output fps-sampler.min.js ./index.js && cp fps-sampler.min.js ./sample/",
+    "deploy": "gh-pages -d sample"
   },
   "keywords": [
     "fps"
@@ -23,6 +25,8 @@
     "eslint": "^3.12.2",
     "mocha": "^3.2.0",
     "sinon": "^1.17.7",
-    "istanbul": "^0.4.5"
+    "istanbul": "^0.4.5",
+    "uglify-js": "^2.4.10",
+    "gh-pages": "*"
   }
 }

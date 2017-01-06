@@ -3,10 +3,10 @@
   "name": "fps-sampler",
   "description": "FPS sampler.",
   "main": "index.js",
-  "version": "0.0.1",
-  "license" : "MIT",
+  "version": "1.0.0",
+  "license": "MIT",
   "engines": {
-    "node": ">=v4.0.0"
+    "node": ">=v0.10.0"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
   "scripts": {
     "test": "istanbul cover _mocha ./test",
     "lint": "eslint index.js test/",
-    "build": "uglifyjs --compress --mangle --verbose --output fps-sampler.min.js ./index.js && cp fps-sampler.min.js ./sample/",
+    "build": "uglifyjs --compress --mangle --verbose --output fps-sampler.min.js ./index.js",
     "deploy": "gh-pages -d sample"
   },
   "keywords": [

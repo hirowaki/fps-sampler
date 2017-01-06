@@ -47,9 +47,9 @@
 
             requestAnimationFrame(mainLoop);
 
-            textFPS.fps.setText(`FPS: ${frameInfo.fps}`);
-            textFPS.elapsed.setText(`elapsed: ${frameInfo.elapsed}`);
-            textFPS.now.setText(`now: ${frameInfo.now}`);
+            textFPS.fps.setText("FPS: " + frameInfo.fps);
+            textFPS.elapsed.setText("elapsed: " + frameInfo.elapsed);
+            textFPS.now.setText("now: " + frameInfo.now);
 
             renderer.render(view);
         }

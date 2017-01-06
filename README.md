@@ -22,7 +22,31 @@ FPSSampler.prototype.update()
 You have to call `update` each frame from your application code (main loop). The result will be `{fps: fps, now: Date.time(), elapsed: elapsed ms since the last call}`. When you set `observerFunc`, observerFunc will be called.
 
 ### Use case
-#### Use case 1. not using callback(observer).
+
+#### Browser.
+```
+<script src="./fps-sampler.min.js"></script>
+
+<script>
+        var sampler = new FpsSampler();
+
+        function mainLoop() {
+            var frameInfo = sampler.update();
+
+            requestAnimationFrame(mainLoop);
+
+            console.log("FPS:" + frameInfo.fps);
+            console.log("elapsed:" + frameInfo.elapsed);
+            console.log("now:" + frameInfo.now);
+        }
+
+        mainLoop();
+</script>
+
+```
+See [demo](https://hirowaki.github.io/fps-sampler/) and [code](https://github.com/hirowaki/fps-sampler/blob/master/sample/index.html).
+
+#### node.js Use case 1. not using callback(observer).
 ```
 // not using callback(observer).
 const FPSSampler = require('fps-sampler');
@@ -39,7 +63,7 @@ function update() {
 
 ```
 
-#### Use case 2. using callback(observer).
+#### node.js Use case 2. using callback(observer).
 ```
 const FPSSampler = require('fps-sampler');
 
@@ -56,7 +80,7 @@ function update() {
 
 ```
 
-#### In case you'd like to use EventEmitter (node/events).
+#### node.js Use case 3. In case you'd like to use EventEmitter (node/events).
 ```
 const FPSSampler = require('fps-sampler');
 const EventEmitter = require('events');

@@ -3,7 +3,7 @@
 var assert = require('assert');
 var sinon = require('sinon');
 var FPSSampler = require('./../index');
-var EventEmitter = require('events');
+var EventEmitter = require('events').EventEmitter;
 
 describe('FPSSampler tests.', function () {
     var sandbox;

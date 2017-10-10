@@ -1,0 +1,14 @@
+doc/
+test/
+sample/
+coverage/
+.travis.yml
+.node-version
+.eslintrc
+.gitignore
+.idea
+.git
+Makefile
+node_modules
+*.log
+

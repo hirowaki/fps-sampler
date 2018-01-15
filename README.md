@@ -6,17 +6,17 @@
 Simple demo [here](https://hirowaki.github.io/fps-sampler/).
 
 ### public API
-```
+```js
 FPSSampler(numSamples)
 ```
 Constructor can have `numSamples` which specifies how many latest frame seconds we'll store. Default is 60. In general, this will be as same as what FPS you'd like to have.
 
-```
+```js
 FPSSampler.prototype.observe(observerFunc)
 ```
 Set observerFunc(callback). When you call `update`, this callback will be called.
 
-```
+```js
 FPSSampler.prototype.update()
 ```
 You have to call `update` each frame from your application code (main loop). The result will be `{fps: fps, now: Date.time(), elapsed: elapsed ms since the last call}`. When you set `observerFunc`, observerFunc will be called.
@@ -24,7 +24,7 @@ You have to call `update` each frame from your application code (main loop). The
 ### Use case
 
 #### Browser.
-```
+```html
 <script src="./fps-sampler.min.js"></script>
 
 <script>
@@ -44,10 +44,9 @@ You have to call `update` each frame from your application code (main loop). The
 </script>
 
 ```
-See [demo](https://hirowaki.github.io/fps-sampler/) and [code](https://github.com/hirowaki/fps-sampler/blob/master/sample/index.html).
 
 #### node.js Use case 1. not using callback(observer).
-```
+```js
 // not using callback(observer).
 const FPSSampler = require('fps-sampler');
 
@@ -64,7 +63,7 @@ function update() {
 ```
 
 #### node.js Use case 2. using callback(observer).
-```
+```js
 const FPSSampler = require('fps-sampler');
 
 const sampler = new FPSSampler(60);     // sampling latest 60 frames.
@@ -81,7 +80,7 @@ function update() {
 ```
 
 #### node.js Use case 3. In case you'd like to use EventEmitter (node/events).
-```
+```js
 const FPSSampler = require('fps-sampler');
 const EventEmitter = require('events');
 

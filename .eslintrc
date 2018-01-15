@@ -3,6 +3,7 @@
         "ecmaVersion": 5
     },
     "rules": {
+        "quotes": ["error", "single"]
     },
     "env": {
         "node": true,
